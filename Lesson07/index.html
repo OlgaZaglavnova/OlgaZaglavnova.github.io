@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JavaScript2 Lesson7</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+<div id="app">
+    <header class="header">
+        <search-form @filter-goods = "filterGoods"></search-form>
+        <button class="cart-button" @click="toggleCart">Корзина</button>
+    </header>
+    <main>
+        <goods-list :goods="filteredGoods" v-if="isQuerySuccess" @add-good-to-cart="addGoodToCart"></goods-list>
+        <query-not-success :queryError = "queryError" v-else></query-not-success>
+        <cart :is-cart-visible="isCartVisible" @hide-cart="toggleCart"></cart>
+        <!--<cart :cartGoods="cartGoods"></cart>
+-->
+        <div class="chat-closed" @click="toggleChat">Чат</div>
+        <div class="chat" v-if="isChatVisible">
+            <a href="#" @click="toggleChat"><div class="chat-close">&#10052;</div></a>
+            <div class="chat-header">
+                <div class="consultant-photo"></div>
+                <h3 class="consultant-name">{{consultantName}}</h3>
+                <p class="consultant-p">Консультант</p>
+            </div>
+            <div class="chat-messages" v-for="chatMsg in chatMessages">
+                <div class="msg-block">
+                    <div class="msg-text msg-consultant">{{chatMsg.text}}</div>
+                    <div class="msg-time">{{chatMsg.time}}</div>
+                </div>
+            </div>
+            <div class="user-message">
+                <textarea class="user-msg" placeholder="Введите сообщение и нажмите Enter"></textarea>
+                <button class="smiles-btn"></button>
+                <button class="attachfile-btn"></button>
+            </div>
+        </div>
+    </main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
